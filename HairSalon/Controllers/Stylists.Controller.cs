@@ -24,5 +24,11 @@ namespace HairSalon.Controllers
             newStylist.Save();
             return View();
         }
+
+        [HttpGet("stylists/index")]
+        public IActionResult Index()
+        {
+            return View(Stylist.GetAll());
+        }
     }
 }

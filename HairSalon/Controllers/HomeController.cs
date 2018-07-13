@@ -18,8 +18,9 @@ namespace HairSalon.Controllers
         [HttpGet("/owner")]
         public IActionResult Owner()
         {
-            
-            return View(Stylist.GetAll());
+            List<object> clientsAndStylists = new List<object>() {Stylist.GetAll(), Client.GetAll()};
+
+            return View(clientsAndStylists);
         }
 
         [HttpGet("/employee")]
