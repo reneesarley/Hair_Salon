@@ -22,21 +22,14 @@
     </environment>*@
 </head>
 <h3>Clients</h3>
-@foreach (var stylist in @Model)
+@foreach (var client in @Model)
 {
 <div class="card" style="width: 18rem;">
-    <div class="card-body stylistCard">
-        <h5 class="card-title">@stylist.GetFirstName() @stylist.GetLastName()</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Services Offered:</h6>
-        <ul>
-            <li class="card-text">Hair Cut - Long Hair: $40.00</li>
-            <li class="card-text">Hair Cut - Short Hair: $35.00</li>
-        </ul>
-        @*<a href="#" class="card-link">View Availability</a>*@
-        <a href="#" class="card-link clientList">View Current Clients</a>
-        <ul class="hidden">
-            <li>loop through client names here</li>
-        </ul>
+    <div class="card-body clientCard">
+        <h5 class="card-title">@client.GetFirstName() @client.GetLastName()</h5>
+        <p class="clientsPhone"></p>
+        <p>Current Stylist: </p>
+
     </div>
 </div>
 }
