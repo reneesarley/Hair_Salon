@@ -15,5 +15,14 @@ namespace HairSalon.Controllers
         {
             return View(Stylist.GetAll());
         }
+
+        [HttpPost("/clients/new")]
+        public IActionResult Save(string firstname, string lastName, int stylistId)
+        {
+            Client newClient = new Client(firstname, lastName, stylistId);
+            newClient.Save();
+
+            return RedirectToAction("Owner", "Home");
+        }
     }
 }
