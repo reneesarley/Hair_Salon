@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using HairSalon.Models;
+using HairSalon.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using Microsoft.AspNetCore.Mvc;
 
 namespace HairSalon.Tests.Controllers.Tests
 {
@@ -21,6 +22,18 @@ namespace HairSalon.Tests.Controllers.Tests
             DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=diningTracker_test;";  
         }
 
+        [TestMethod]
+        public void AddNewForm_ReturnsCorrectView_View()
+        {
+            //Arrange
+            StylistsController controller = new StylistsController();
+
+            //Act
+            IActionResult addNewFormView = controller.AddNewForm();
+
+            //Assert
+            Assert.IsInstanceOfType(addNewFormView, typeof(ViewResult));
+        }
 
     }
 }

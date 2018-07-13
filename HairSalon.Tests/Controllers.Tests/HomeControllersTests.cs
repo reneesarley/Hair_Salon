@@ -18,10 +18,10 @@ namespace HairSalon.Tests.Controllers.Tests
             HomeController controller = new HomeController();
 
             //Act
-            IActionResult addNewView = controller.Index();
+            IActionResult indexView = controller.Index();
 
             //Assert
-            Assert.IsInstanceOfType(addNewView, typeof(ViewResult));
+            Assert.IsInstanceOfType(indexView, typeof(ViewResult));
         }
     }
 }
