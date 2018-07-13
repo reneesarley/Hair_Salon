@@ -40,12 +40,12 @@ namespace HairSalon.Models
             var cmd = conn.CreateCommand() as MySqlCommand;
             cmd.CommandText = @"INSERT INTO stylists (firstName, lastName) VALUES (@FirstName, @Lastname);";
 
-            MySqlParameter firstName = new MySqlParameter;
+            MySqlParameter firstName = new MySqlParameter()
             firstName.ParameterName = "@FirstName";
             firstName.Value = _firstName;
-            cmd.Parameters.Add(firstName);
+            cmd.Parameters.Add(firstName); 
 
-            MySqlParameter lastName = new MySqlParameter;
+            MySqlParameter lastName = new MySqlParameter();
             lastName.ParameterName = "@LastName";
             lastName.Value = _lastName;
             cmd.Parameters.Add(lastName);
