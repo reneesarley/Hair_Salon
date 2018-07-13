@@ -10,7 +10,7 @@
         <input type="text" class="form-control nameEntry" name="lastName" id="lastName">
     </div>
     <label for="stylist">Select client's Stylist</label>
-    <select name="stylistId" class="form-control form-control-sm">
+    <select name="stylistId" class="form-control form-control-sm" required>
         @foreach (var stylist in Model)
         {
         <option value="@stylist.GetId()">@stylist.GetFirstName() @stylist.GetLastName()</option>

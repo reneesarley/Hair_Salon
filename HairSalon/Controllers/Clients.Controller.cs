@@ -22,7 +22,7 @@ namespace HairSalon.Controllers
             Client newClient = new Client(firstname, lastName, stylistId);
             newClient.Save();
 
-            return RedirectToAction("Owner", "Home");
+            return RedirectToAction("Index", "Clients");
         }
 
         [HttpGet("clients/index")]
