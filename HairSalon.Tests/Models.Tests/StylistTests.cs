@@ -31,8 +31,6 @@ namespace HairSalon.Tests.Models.Tests
             Assert.AreEqual(0, result);
          }
 
-
-
         [TestMethod]
         public void Save_SavesToDatabase_StylistList()
         {
@@ -46,6 +44,20 @@ namespace HairSalon.Tests.Models.Tests
 
             //Assert
             CollectionAssert.AreEqual(result, testList);
+        }
+
+        [TestMethod]
+        public void Find_FindsStylist_Stylist()
+        {
+            //Arrange
+            Stylist testStylist = new Stylist("Sarah", "Jones");
+            testStylist.Save();
+
+            //Act
+            Stylist foundStylist = Stylist.Find(testStylist.GetId());
+
+            //Assert
+           Assert.AreEqual(testStylist, foundStylist);
         }
     }
 }
