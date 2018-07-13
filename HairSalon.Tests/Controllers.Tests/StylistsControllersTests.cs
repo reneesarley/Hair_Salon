@@ -35,5 +35,10 @@ namespace HairSalon.Tests.Controllers.Tests
             Assert.IsInstanceOfType(addNewFormView, typeof(ViewResult));
         }
 
+        //not testin posts yet
+        //[TestMethod]
+        //public void Save_SavesStylistToDB_ListOfStylists()
+        //{}
+
     }
 }

@@ -2,3 +2,13 @@
 }
 
 <h2>Add New Stylist</h2>
+
+<form action="/stylists/new" method="post">
+    <div class="form-group">
+        <label for="stylistFirstName">First Name</label>
+        <input type="text" class="form-control nameEntry" name="firstName" id="firstName">
+        <label for="stylistLastName">Last Name</label>
+        <input type="text" class="form-control nameEntry" name="LastName" id="LastName">
+    </div>
+<button type="submit" class="btn btn-primary">Submit</button>
+</form>

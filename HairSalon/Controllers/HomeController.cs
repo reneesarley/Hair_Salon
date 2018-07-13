@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HairSalon.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HairSalon.Controllers
@@ -17,7 +18,8 @@ namespace HairSalon.Controllers
         [HttpGet("/owner")]
         public IActionResult Owner()
         {
-            return View();
+            
+            return View(Stylist.GetAll());
         }
 
         [HttpGet("/employee")]

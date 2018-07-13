@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HairSalon.Models;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,6 +14,14 @@ namespace HairSalon.Controllers
         [HttpGet("stylists/new")]
         public IActionResult AddNewForm()
         {
+            return View();
+        }
+
+        [HttpPost ("stylists/new")]
+        public IActionResult Save(string firstName, string lastName)
+        {
+            Stylist newStylist = new Stylist(firstName, lastName);
+            newStylist.Save();
             return View();
         }
     }
