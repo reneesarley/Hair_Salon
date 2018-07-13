@@ -28,8 +28,8 @@ namespace HairSalon.Controllers
         [HttpGet("clients/index")]
         public IActionResult Index()
         {
-          
-            return View(Client.GetAll());
+            List<object> model = new List<object>() {Client.GetAll(), };
+            return View(model);
         }
     }
 }
