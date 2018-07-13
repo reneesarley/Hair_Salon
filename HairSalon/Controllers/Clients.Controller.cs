@@ -24,5 +24,12 @@ namespace HairSalon.Controllers
 
             return RedirectToAction("Owner", "Home");
         }
+
+         [HttpPost("/clients/index")]
+        public IActionResult Index()
+        {
+          
+            return View(Client.GetAll());
+        }
     }
 }
