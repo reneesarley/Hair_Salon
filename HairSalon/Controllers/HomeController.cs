@@ -14,5 +14,17 @@ namespace HairSalon.Controllers
             return View();
         }
 
+        [HttpGet("/owner")]
+        public IActionResult Owner()
+        {
+            return View();
+        }
+
+        [HttpGet("/employee")]
+        public IActionResult Employee()
+        {
+            return View();
+        }
+
     }
 }
