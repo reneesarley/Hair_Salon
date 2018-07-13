@@ -12,15 +12,10 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
-    @*<environment names="Staging,Production">
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-    </environment>*@
+
 </head>
 <h3>Stylists</h3>
+<p><a href="/stylists/new">ADD NEW STYLIST</a></p>
 @foreach (var stylist in @Model)
 {
     <div class="card" style="width: 18rem;">
@@ -32,7 +27,7 @@
             <li class="card-text">Hair Cut - Short Hair: $35.00</li>
              </ul>
             @*<a href="#" class="card-link">View Availability</a>*@
-            <a href="#" class="card-link clientList">View Current Clients</a>
+            <a href="#" class="card-link">View Current Clients</a>
             <ul class="hidden">
                 <li>loop through client names here</li>
             </ul>

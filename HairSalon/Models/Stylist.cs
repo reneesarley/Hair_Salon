@@ -32,6 +32,11 @@ namespace HairSalon.Models
             return _lastName;
         }
 
+        public string GetFirstAndLastName()
+        {
+            return _firstName + " " + _lastName;
+        }
+
         public static List<Stylist> GetAll()
         {
             List<Stylist> allStylists = new List<Stylist> {};

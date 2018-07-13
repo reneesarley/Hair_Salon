@@ -22,7 +22,7 @@ namespace HairSalon.Controllers
         {
             Stylist newStylist = new Stylist(firstName, lastName);
             newStylist.Save();
-            return View();
+            return RedirectToAction("Index", "Stylists");
         }
 
         [HttpGet("stylists/index")]
