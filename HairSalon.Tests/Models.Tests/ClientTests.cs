@@ -18,9 +18,15 @@ namespace HairSalon.Tests.Models.Tests
             DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=renee_sarley_test;";
         }
 
-        //[TestMethod]
-        //public ClientTests()
-        //{
-        //}
+        [TestMethod]
+        public void GetAll_DBStartsEmpty_0()
+        {
+            //Arrange
+            //Act
+            int result = Client.GetAll().Count;
+
+            //Assert
+            Assert.AreEqual(0, result);
+        }
     }
 }
