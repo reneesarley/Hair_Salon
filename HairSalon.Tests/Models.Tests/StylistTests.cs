@@ -36,7 +36,6 @@ namespace HairSalon.Tests.Models.Tests
         {
             //Arrange
             Stylist testStylist = new Stylist("Sarah", "Jones");
-       
 
             //Act
             testStylist.Save();
