@@ -3,6 +3,7 @@
 *@
 @{
 }
+@using HairSalon.Models;
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,10 +27,13 @@
             <li class="card-text">Hair Cut - Long Hair: $40.00</li>
             <li class="card-text">Hair Cut - Short Hair: $35.00</li>
              </ul>
-            @*<a href="#" class="card-link">View Availability</a>*@
-            <a href="#" class="card-link">View Current Clients</a>
-            <ul class="hidden">
-                <li>loop through client names here</li>
+            <h6 class="card-link">Current Clients</h6>
+            <ul>
+                @foreach (var client in Client.FilteredByStylist(@stylist.GetId()))
+                    {
+                       <li> @client.GetFirstName()  @client.GetLastName() </li>
+                    }
+
             </ul>
         </div>
     </div>
