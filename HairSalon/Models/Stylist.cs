@@ -34,7 +34,7 @@ namespace HairSalon.Models
 
         public static List<Stylist> GetAll()
         {
-            List<Stylist> allStylists = new List<Stylist> {new Stylist("Sarah", "Smith")};
+            List<Stylist> allStylists = new List<Stylist> {};
 
             MySqlConnection conn = DB.Connection();
             conn.Open();
@@ -125,7 +125,7 @@ namespace HairSalon.Models
         public override int GetHashCode()
         {
             return this.GetFirstName().GetHashCode();
-            return this.GetLastName().GetHashCode();
+           
         }
 
 
