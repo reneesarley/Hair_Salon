@@ -1,0 +1,21 @@
+﻿
+@{
+}
+<h2>Add New Client</h2>
+<form action="/clients/new" method="post">
+    <div class="form-group">
+        <label for="clientFirstName">First Name</label>
+        <input type="text" class="form-control nameEntry" name="firstName" id="firstName">
+        <label for="clientsLastName">Last Name</label>
+        <input type="text" class="form-control nameEntry" name="lastName" id="lastName">
+    </div>
+    <label for="stylist">Select client's Stylist</label>
+    <select class="form-control form-control-sm">
+        @foreach (var stylist in Model)
+        {
+        <option value="@stylist.GetId()">@stylist.GetFirstName() @stylist.GetLastName()</option>
+        }
+
+    </select>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
