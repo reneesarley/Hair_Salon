@@ -20,6 +20,11 @@ namespace HairSalon.Models
             _serviceName = serviceName;
         }
 
+        public int GetServiceId()
+        {
+            return _id;
+        }
+
         public string GetServiceName()
         {
             return _serviceName;

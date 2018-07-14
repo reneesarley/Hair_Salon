@@ -13,6 +13,7 @@ namespace HairSalon.Tests.Models.Tests
         public void Dispose()
         {
             Stylist.DeleteAll();
+            Service.DeleteAll();
         }
 
         public StylistTests()
@@ -75,6 +76,27 @@ namespace HairSalon.Tests.Models.Tests
 
             List<Service> result = testStylist.GetServices();
             List<Service> testList = new List<Service> { testService };
+
+            //Assert
+            CollectionAssert.AreEqual(testList, result);
+        }
+        [TestMethod]
+        public void GetServices_ReturnsAllStylistServices_CategoryList()
+        {
+            //Arrange
+            Stylist testStylist = new Stylist("first", "last");
+            testStylist.Save();
+
+            Service testService1 = new Service("hair cut");
+            testService1.Save();
+
+            Service testService2 = new Service("color");
+            testService2.Save();
+
+            //Act
+            testStylist.AddService(testService1);
+            List<Service> result = testStylist.GetServices();
+            List<Service> testList = new List<Service> { testService1 };
 
             //Assert
             CollectionAssert.AreEqual(testList, result);

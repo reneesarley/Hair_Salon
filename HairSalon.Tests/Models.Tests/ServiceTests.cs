@@ -41,7 +41,6 @@ namespace HairSalon.Tests.Models.Tests
             //Act
             testService.Save();
             List<Service> result = Service.GetAll();
-            //List<Service> result = new List<Service>() { new Service("Cut - Long Hair") };
             List<Service> testList = new List<Service>() {new Service("Cut - Long Hair")};
 
             //Assert
