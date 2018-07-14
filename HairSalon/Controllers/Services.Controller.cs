@@ -8,7 +8,7 @@ using HairSalon.Models;
 
 namespace HairSalon.Controllers
 {
-    public class Services : Controller
+    public class ServicesController : Controller
     {
         [HttpGet ("services/index")]
         public IActionResult Index()
