@@ -32,19 +32,19 @@ namespace HairSalon.Tests.Models.Tests
             Assert.AreEqual(0, result);
         }
 
-        [TestMethod]
-        public void Save_SavesToDatabase_ServiceList()
-        {
-            //Arrange
-            Service testService = new Service("Cut - Long Hair", 2);
+        //[TestMethod]
+        //public void Save_SavesToDatabase_ServiceList()
+        //{
+        //    //Arrange
+        //    Service testService = new Service("Cut - Long Hair", 2);
 
-            //Act
-            testService.Save();
-            List<Service> result = Service.GetAll();
-            List<Service> testService = new List<Service>() { testService };
+        //    //Act
+        //    testService.Save();
+        //    List<Service> result = Service.GetAll();
+        //    List<Service> testList = new List<Service>() { testService };
 
-            //Assert
-            CollectionAssert.AreEqual(result, testService);
-        }
+        //    //Assert
+        //    CollectionAssert.AreEqual(result, testList);
+        //}
     }
 }

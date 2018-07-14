@@ -56,7 +56,7 @@ namespace HairSalon.Models
 
         public static List<Service> GetAll()
         {
-            //List<Client> allClients = new List<Client> { };
+            List<Service> allServices = new List<Service> { };
 
             //MySqlConnection conn = DB.Connection();
             //conn.Open();
@@ -81,7 +81,7 @@ namespace HairSalon.Models
             //    conn.Dispose();
             //}
 
-            //return allClients;
+            return allServices;
 
         }
 
