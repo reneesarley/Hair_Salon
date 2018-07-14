@@ -59,5 +59,25 @@ namespace HairSalon.Tests.Models.Tests
             //Assert
            Assert.AreEqual(testStylist, foundStylist);
         }
+
+        [TestMethod]
+        public void AddService_AddsServiceToStylist_ServiceList()
+        {
+            //Arrange
+            Stylist testStylist = new Stylist("first", "last");
+            testStylist.Save();
+
+            Service testService = new Service("Hair Cut");
+            testService.Save();
+
+            //Act
+            testStylist.AddService(testService);
+
+            List<Service> result = testStylist.GetServices();
+            List<Service> testList = new List<Service> { testService };
+
+            //Assert
+            CollectionAssert.AreEqual(testList, result);
+        }
     }
 }

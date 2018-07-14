@@ -132,6 +132,17 @@ namespace HairSalon.Models
             }
         }
 
+        public void AddService(Service newService)
+        {
+            
+        }
+
+        public List<Service> GetServices()
+        {
+            List<Service> services = new List<Service> { };
+            return services;
+        }
+
         public static void DeleteAll()
         {
             MySqlConnection conn = DB.Connection();
