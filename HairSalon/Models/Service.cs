@@ -20,37 +20,32 @@ namespace HairSalon.Models
             _serviceName = serviceName;
         }
 
+        public string GetServiceName()
+        {
+            return _serviceName;
+        }
+
         public void Save()
         {
-            //MySqlConnection conn = DB.Connection();
-            //conn.Open();
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
 
-            //var cmd = conn.CreateCommand() as MySqlCommand;
-            //cmd.CommandText = @"INSERT INTO clients (firstName, lastName, stylistId) VALUES (@FirstName, @Lastname, @StylistId);";
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"INSERT INTO services (serviceName) VALUES (@ServiceName);";
 
-            //MySqlParameter firstName = new MySqlParameter();
-            //firstName.ParameterName = "@FirstName";
-            //firstName.Value = _firstName;
-            //cmd.Parameters.Add(firstName);
+            MySqlParameter serviceName = new MySqlParameter();
+            serviceName.ParameterName = "@ServiceName";
+            serviceName.Value = _serviceName;
+            cmd.Parameters.Add(serviceName);
 
-            //MySqlParameter lastName = new MySqlParameter();
-            //lastName.ParameterName = "@LastName";
-            //lastName.Value = _lastName;
-            //cmd.Parameters.Add(lastName);
+            cmd.ExecuteNonQuery();
+            _id = (int)cmd.LastInsertedId;
 
-            //MySqlParameter stylistId = new MySqlParameter();
-            //stylistId.ParameterName = "@StylistId";
-            //stylistId.Value = _stylistId;
-            //cmd.Parameters.Add(stylistId);
-
-            //cmd.ExecuteNonQuery();
-            //_id = (int)cmd.LastInsertedId;
-
-            //conn.Close();
-            //if (conn != null)
-            //{
-            //    conn.Dispose();
-            //}
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
 
         }
 
@@ -58,28 +53,26 @@ namespace HairSalon.Models
         {
             List<Service> allServices = new List<Service> { };
 
-            //MySqlConnection conn = DB.Connection();
-            //conn.Open();
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
 
-            //var cmd = conn.CreateCommand() as MySqlCommand;
-            //cmd.CommandText = @"SELECT * FROM clients;";
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT * FROM services;";
 
-            //MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
-            //while (rdr.Read())
-            //{
-            //    int id = rdr.GetInt32(0);
-            //    string firstName = rdr.GetString(1);
-            //    string lastName = rdr.GetString(2);
-            //    int stylistId = rdr.GetInt32(3);
-            //    Client newClient = new Client(firstName, lastName, stylistId, id);
-            //    allClients.Add(newClient);
-            //}
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+            while (rdr.Read())
+            {
+                int id = rdr.GetInt32(0);
+                string serviceName = rdr.GetString(1);
+                Service newService = new Service(serviceName, id);
+                allServices.Add(newService);
+            }
 
-            //conn.Close();
-            //if (conn != null)
-            //{
-            //    conn.Dispose();
-            //}
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
 
             return allServices;
 
@@ -100,6 +93,19 @@ namespace HairSalon.Models
             if (conn != null)
             {
                 conn.Dispose();
+            }
+        }
+        public override bool Equals(System.Object otherService)
+        {
+            if (!(otherService is Service))
+            {
+                return false;
+            }
+            else
+            {
+                Service newService = (Service)otherService;
+                bool serviceNameEquality = this.GetServiceName().Equals(newService.GetServiceName());
+                return (serviceNameEquality);
             }
         }
     }

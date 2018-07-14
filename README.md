@@ -11,19 +11,9 @@ _This application will track all the stylists and their clients for a hair salon
 
 ## Setup/Installation Requirements
 
-_Download the project from the GitHub repo here: https://github.com/reneesarley/Hair_Salon.git_
-_To set up the database run the following commands in MySQL:_
-CREATE DATABASE renee_sarley;
-USE renee_sarley;
-CREATE TABLE `clients` (`id` int(11) NOT NULL,`firstName` varchar(255) NOT NULL,`lastName` varchar(255) NOT NULL,`stylistId` int(11) NOT NULL);
-CREATE TABLE `stylists` (
-  `id` int(11) NOT NULL,
-  `firstName` varchar(255) NOT NULL,
-  `lastName` varchar(255) NOT NULL
-);
-* To setup the database and populate with data use the sql from renee_sarley.sql
-
-
+* _Download the project from the GitHub repo here: https://github.com/reneesarley/Hair_Salon.git_
+* _To set up the database copy and paste all lines from the renee_sarley.sql file into mySql;
+*_To set up the test database copy and paste all lines from the renee_sarley_test.sql file into MySql_
 
 ## Specifications for Hair Salon Stylist and Client Tracker
 
