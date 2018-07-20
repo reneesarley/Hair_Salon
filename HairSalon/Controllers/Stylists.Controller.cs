@@ -14,7 +14,7 @@ namespace HairSalon.Controllers
         [HttpGet("stylists/new")]
         public IActionResult AddNewForm()
         {
-            return View();
+            return View(Specialty.GetAll());
         }
 
         [HttpPost ("stylists/new")]

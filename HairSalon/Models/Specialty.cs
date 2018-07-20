@@ -56,7 +56,7 @@ namespace HairSalon.Models
 
         public static List<Specialty> GetAll()
         {
-            List<Specialty> allSpecialtys = new List<Specialty> { };
+            List<Specialty> allSpecialties = new List<Specialty> { };
 
             MySqlConnection conn = DB.Connection();
             conn.Open();
@@ -70,7 +70,7 @@ namespace HairSalon.Models
                 int id = rdr.GetInt32(0);
                 string specialtyName = rdr.GetString(1);
                 Specialty newSpecialty = new Specialty(specialtyName, id);
-                allSpecialtys.Add(newSpecialty);
+                allSpecialties.Add(newSpecialty);
             }
 
             conn.Close();
@@ -79,7 +79,7 @@ namespace HairSalon.Models
                 conn.Dispose();
             }
 
-            return allSpecialtys;
+            return allSpecialties;
 
         }
 

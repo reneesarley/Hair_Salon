@@ -4,3 +4,9 @@
 @{
 }
 <h1>Specialties</h1>
+<ul>
+    @foreach (var specialty in Model)
+    {
+    <li>@specialty.GetSpecialtyName()</li> 
+     }
+</ul>
