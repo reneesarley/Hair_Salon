@@ -6,21 +6,21 @@ namespace HairSalon.Models
 {
     public class Stylist
     {
-        private int _id;
+        public int id { get; set; }
         private string _firstName;
         private string _lastName;
 
-        public Stylist(string firstName, string lastName, int id = 0)
+        public Stylist(string firstName, string lastName, int stylistId = 0)
         {
-            _id = id;
+            id = id;
             _lastName = lastName;
             _firstName = firstName;
         }
 
-        public int GetId()
-        {
-            return _id;
-        }
+        //public int GetId()
+        //{
+        //    return _id;
+        //}
 
         public string GetFirstName()
         {
@@ -123,7 +123,7 @@ namespace HairSalon.Models
             cmd.Parameters.Add(lastName);
 
             cmd.ExecuteNonQuery();
-            _id = (int)cmd.LastInsertedId;
+            id = (int)cmd.LastInsertedId;
 
             conn.Close();
             if (conn != null)
@@ -146,7 +146,7 @@ namespace HairSalon.Models
 
             MySqlParameter stylist_id = new MySqlParameter();
             stylist_id.ParameterName = "@StylistId";
-            stylist_id.Value = _id;
+            stylist_id.Value = id;
             cmd.Parameters.Add(stylist_id);
 
             cmd.ExecuteNonQuery();
@@ -167,7 +167,7 @@ namespace HairSalon.Models
 
             MySqlParameter stylistId = new MySqlParameter();
             stylistId.ParameterName = "@StylistId";
-            stylistId.Value = _id;
+            stylistId.Value = id;
             cmd.Parameters.Add(stylistId);
 
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
@@ -225,6 +225,24 @@ namespace HairSalon.Models
             conn.Dispose();
         }
     }
+        public static void Delete(int id)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"DELETE FROM stylists where id = @StylistId;";
+           
+            cmd.Parameters.AddWithValue("@StylistId", id);
+
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
 
     public override bool Equals(System.Object otherStylist)
     {
@@ -237,7 +255,7 @@ namespace HairSalon.Models
             Stylist newStylist = (Stylist)otherStylist;
             bool firstNameEquality = this.GetFirstName().Equals(newStylist.GetFirstName());
             bool lastNameEquality = this.GetLastName().Equals(newStylist.GetLastName());
-            bool idEquality = this.GetId().Equals(newStylist.GetId());
+            bool idEquality = this.id.Equals(newStylist.id);
             return (firstNameEquality && lastNameEquality && idEquality);
         }
     }

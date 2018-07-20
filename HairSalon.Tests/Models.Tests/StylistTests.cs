@@ -55,7 +55,7 @@ namespace HairSalon.Tests.Models.Tests
             testStylist.Save();
 
             //Act
-            Stylist foundStylist = Stylist.Find(testStylist.GetId());
+            Stylist foundStylist = Stylist.Find(testStylist.id);
 
             //Assert
            Assert.AreEqual(testStylist, foundStylist);
@@ -101,5 +101,6 @@ namespace HairSalon.Tests.Models.Tests
             //Assert
             CollectionAssert.AreEqual(testList, result);
         }
+
     }
 }
