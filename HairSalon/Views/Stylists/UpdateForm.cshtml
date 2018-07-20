@@ -2,7 +2,7 @@
 @{
 }
 <h1>Update @Model.GetFirstName() @Model.GetLastName()</h1>
-<form action="/stylist/@Model.id/update" method="post">
+<form action="/stylists/@Model.id/update" method="post">
     <div class="form-group">
         <label for="newFirstName">Title</label>
         <input type="text" class="form-control" value="@Model.GetFirstName()" name="newFirstName" id="newFirstName">

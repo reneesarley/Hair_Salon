@@ -1,0 +1,23 @@
+﻿
+@{
+}
+<h1>Update @Model[0].GetFirstName() @Model[0].GetLastName()</h1>
+<form action="/clients/@Model[0].GetId()/update" method="post">
+    <div class="form-group">
+        <label for="newFirstName">Title</label>
+        <input type="text" class="form-control" value="@Model[0].GetFirstName()" name="newFirstName" id="newFirstName">
+    </div>
+
+    <div class="form-group">
+        <label for="newLastName">Title</label>
+        <input type="text" class="form-control" value="@Model[0].GetLastName()" name="newLastName" id="newLastName">
+    </div>
+    <label>Select Stylist:</label>
+    <select name="stylistId">
+        @foreach (var stylist in Model[1])
+        { 
+            <option value="@stylist.id"> @stylist.GetFirstName() @stylist.GetLastName() </option>
+        }
+    </select>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

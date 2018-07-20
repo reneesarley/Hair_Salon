@@ -76,6 +76,47 @@ namespace HairSalon.Models
             
         }
 
+        public static Client Find(int id)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT * FROM clients WHERE id = @ThisId;";
+
+            MySqlParameter thisId = new MySqlParameter();
+            thisId.ParameterName = "@ThisId";
+            thisId.Value = id;
+            cmd.Parameters.Add(thisId);
+
+            var rdr = cmd.ExecuteReader() as MySqlDataReader;
+
+            int clientId = 0;
+            string firstName = "";
+            string lastName = "";
+            int stylistId = 0;
+
+            while (rdr.Read())
+            {
+                clientId = rdr.GetInt32(0);
+                firstName = rdr.GetString(1);
+                lastName = rdr.GetString(2);
+                stylistId = rdr.GetInt32(3);
+            }
+
+            Client foundClient = new Client(firstName, lastName, stylistId, clientId);
+           
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+
+            return foundClient;
+
+        }
+
         public static List<Client> GetAll()
         {
             List<Client> allClients = new List<Client> { };
@@ -159,6 +200,28 @@ namespace HairSalon.Models
                 conn.Dispose();
             }
         }
+        public static void Update(string newFirstName, string newLastName, int stylistId, int clientId)
+        {
+
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"UPDATE clients SET firstName = @NewFirstName, lastName = @NewLastName, stylistId = @StylistId WHERE id = @ClientId";
+
+            cmd.Parameters.AddWithValue("@NewFirstName", newFirstName);
+            cmd.Parameters.AddWithValue("@NewLastName", newLastName);
+            cmd.Parameters.AddWithValue("@StylistId", stylistId);
+            cmd.Parameters.AddWithValue("@ClientID", clientId);
+
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
 
         public static void Delete(int id)
         {
@@ -190,9 +253,9 @@ namespace HairSalon.Models
                 Client newClient = (Client)otherClient;
                 bool firstNameEquality = this.GetFirstName().Equals(newClient.GetFirstName());
                 bool lastNameEquality = this.GetLastName().Equals(newClient.GetLastName());
-                bool idEquality = this.GetId().Equals(newClient.GetId());
+                //bool idEquality = this.GetId().Equals(newClient.GetId());
                 bool stylistIdEquality = this.GetStylistId().Equals(newClient.GetStylistId());
-                return (firstNameEquality && lastNameEquality && idEquality && stylistIdEquality);
+                return (firstNameEquality && lastNameEquality  && stylistIdEquality);
             }
         }
 

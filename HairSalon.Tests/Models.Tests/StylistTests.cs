@@ -12,7 +12,7 @@ namespace HairSalon.Tests.Models.Tests
     {
         public void Dispose()
         {
-            Stylist.DeleteAll();
+        //    Stylist.DeleteAll();
             Specialty.DeleteAll();
         }
 
@@ -100,6 +100,26 @@ namespace HairSalon.Tests.Models.Tests
 
             //Assert
             CollectionAssert.AreEqual(testList, result);
+        }
+
+        [TestMethod]
+        public void Update_UpdatesStylistInDatabase_String()
+        {
+            //Arrange
+            string initialFirstName = "Tom";
+            string initialLastName = "Jones";
+            Stylist testStylist = new Stylist(initialFirstName, initialLastName, 1);
+            testStylist.Save();
+            string secondFirstName = "Bob";
+            string secondLastName = "Smith";
+            Stylist updatedStylist = new Stylist(initialFirstName, initialLastName);
+
+            //Act
+            Stylist.Update(secondFirstName, secondLastName, 1);
+            Stylist result = Stylist.Find(testStylist.id);
+
+            //Assert
+            Assert.AreEqual(result, updatedStylist);
         }
 
     }

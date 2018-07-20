@@ -45,5 +45,19 @@ namespace HairSalon.Controllers
             Client.DeleteAll();
             return RedirectToAction("Index");
         }
+
+        [HttpGet("/clients/{id}/update")]
+        public IActionResult UpdateForm(int id)
+        {
+            List<object> model = new List<object>() { Client.Find(id), Stylist.GetAll() };
+            return View(model);
+        }
+
+        [HttpPost("/clients/{id}/update")]
+        public IActionResult UpdateClient(int id, string newFirstName, string newLastName, int stylistId)
+        {
+            Client.Update(newFirstName, newLastName, stylistId, id);
+            return RedirectToAction("Index");
+        }
     }
 }

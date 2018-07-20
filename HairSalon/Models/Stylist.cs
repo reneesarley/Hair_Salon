@@ -276,7 +276,6 @@ namespace HairSalon.Models
             Stylist newStylist = (Stylist)otherStylist;
             bool firstNameEquality = this.GetFirstName().Equals(newStylist.GetFirstName());
             bool lastNameEquality = this.GetLastName().Equals(newStylist.GetLastName());
-            //bool idEquality = this.id.Equals(newStylist.id);
             return (firstNameEquality && lastNameEquality);
         }
     }
