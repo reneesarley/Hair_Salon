@@ -18,10 +18,17 @@ namespace HairSalon.Controllers
         }
 
         [HttpPost ("stylists/new")]
-        public IActionResult Save(string firstName, string lastName)
+        public IActionResult Save(string firstName, string lastName, int[] specialties)
         {
             Stylist newStylist = new Stylist(firstName, lastName);
             newStylist.Save();
+            int stylistId = Stylist.FindLastAdded();
+
+            for (int i = 0; i < specialties.Count(); i++)
+            {
+                newStylist.AddSpecialty(specialties[i]);
+            }
+
             return RedirectToAction("Index", "Stylists");
         }
 

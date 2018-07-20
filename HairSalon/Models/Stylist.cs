@@ -132,22 +132,15 @@ namespace HairSalon.Models
             }
         }
 
-        public void AddSpecialty(Specialty newSpecialty)
+        public void AddSpecialty(int newSpecialty)
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"INSERT INTO stylists_Specialties (stylist_id, Specialty_id) VALUES (@StylistId, @SpecialtyId);";
+            cmd.CommandText = @"INSERT INTO stylists_specialties (stylist_id, Specialty_id) VALUES (@StylistId, @SpecialtyId);";
 
-            MySqlParameter Specialty_id = new MySqlParameter();
-            Specialty_id.ParameterName = "@SpecialtyId";
-            Specialty_id.Value = newSpecialty.GetSpecialtyId();
-            cmd.Parameters.Add(Specialty_id);
-
-            MySqlParameter stylist_id = new MySqlParameter();
-            stylist_id.ParameterName = "@StylistId";
-            stylist_id.Value = id;
-            cmd.Parameters.Add(stylist_id);
+            cmd.Parameters.AddWithValue("@SpecialtyId", newSpecialty);
+            cmd.Parameters.AddWithValue("@StylistId", this.id);
 
             cmd.ExecuteNonQuery();
             conn.Close();
@@ -155,7 +148,6 @@ namespace HairSalon.Models
             {
                 conn.Dispose();
             }
-
         }
 
         public List<Specialty> GetSpecialties()
@@ -264,28 +256,50 @@ namespace HairSalon.Models
                 conn.Dispose();
             }
         }
-
-    public override bool Equals(System.Object otherStylist)
-    {
-        if (!(otherStylist is Stylist))
+        public static int FindLastAdded()
         {
-            return false;
+            int lastAddedId = 0;
+
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT * FROM stylists ORDER BY ID DESC LIMIT 1";
+
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+            while (rdr.Read())
+            {
+                lastAddedId = rdr.GetInt32(0);
+            }
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            return lastAddedId;
         }
-        else
+
+        public override bool Equals(System.Object otherStylist)
         {
-            Stylist newStylist = (Stylist)otherStylist;
-            bool firstNameEquality = this.GetFirstName().Equals(newStylist.GetFirstName());
-            bool lastNameEquality = this.GetLastName().Equals(newStylist.GetLastName());
-            return (firstNameEquality && lastNameEquality);
+            if (!(otherStylist is Stylist))
+            {
+                return false;
+            }
+            else
+            {
+                Stylist newStylist = (Stylist)otherStylist;
+                bool firstNameEquality = this.GetFirstName().Equals(newStylist.GetFirstName());
+                bool lastNameEquality = this.GetLastName().Equals(newStylist.GetLastName());
+                return (firstNameEquality && lastNameEquality);
+            }
         }
+
+        public override int GetHashCode()
+        {
+            return this.GetFirstName().GetHashCode();
+
+        }
+
     }
-
-    public override int GetHashCode()
-    {
-        return this.GetFirstName().GetHashCode();
-
-    }
-
-
-}
 }

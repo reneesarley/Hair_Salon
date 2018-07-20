@@ -72,7 +72,7 @@ namespace HairSalon.Tests.Models.Tests
             testSpecialty.Save();
 
             //Act
-            testStylist.AddSpecialty(testSpecialty);
+            testStylist.AddSpecialty(testSpecialty.GetSpecialtyId());
 
             List<Specialty> result = testStylist.GetSpecialties();
             List<Specialty> testList = new List<Specialty> { testSpecialty };
@@ -94,7 +94,7 @@ namespace HairSalon.Tests.Models.Tests
             testSpecialty2.Save();
 
             //Act
-            testStylist.AddSpecialty(testSpecialty1);
+            testStylist.AddSpecialty(testSpecialty1.GetSpecialtyId());
             List<Specialty> result = testStylist.GetSpecialties();
             List<Specialty> testList = new List<Specialty> { testSpecialty1 };
 
