@@ -23,10 +23,12 @@
     <div class="card" style="width: 18rem;">
         <div class="card-body stylistCard">
             <h5 class="card-title">@stylist.GetFirstName() @stylist.GetLastName()</h5>
-            <h6 class="card-subtitle mb-2 text-muted">:</h6>
+            <h6 class="card-link">Specialties:</h6>
             <ul>
-            <li class="card-text">Hair Cut - Long Hair: $40.00</li>
-            <li class="card-text">Hair Cut - Short Hair: $35.00</li>
+                @foreach(var specialty in Specialty.GetAllForStylist(stylist.id))
+                {
+                    <li>@specialty.GetSpecialtyName()</li>
+                }
              </ul>
             <h6 class="card-link">Current Clients</h6>
             <ul>
