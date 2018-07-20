@@ -8,15 +8,15 @@ namespace HairSalon.Tests.Models.Tests
                    
 {
     [TestClass]
-    public class ServiceTests : IDisposable
+    public class SpecialtyTests : IDisposable
     {
 
         public void Dispose()
         {
-            Service.DeleteAll();
+            Specialty.DeleteAll();
         }
 
-        public ServiceTests()
+        public SpecialtyTests()
         {
             DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=renee_sarley_test;";
         }
@@ -26,22 +26,22 @@ namespace HairSalon.Tests.Models.Tests
         {
             //Arrange
             //Act
-            int result = Service.GetAll().Count;
+            int result = Specialty.GetAll().Count;
 
             //Assert
             Assert.AreEqual(0, result);
         }
 
         [TestMethod]
-        public void Save_SavesToDatabase_ServiceList()
+        public void Save_SavesToDatabase_SpecialtyList()
         {
             //Arrange
-            Service testService = new Service("Cut - Long Hair");
+            Specialty testSpecialty = new Specialty("Cut - Long Hair");
 
             //Act
-            testService.Save();
-            List<Service> result = Service.GetAll();
-            List<Service> testList = new List<Service>() {new Service("Cut - Long Hair")};
+            testSpecialty.Save();
+            List<Specialty> result = Specialty.GetAll();
+            List<Specialty> testList = new List<Specialty>() {new Specialty("Cut - Long Hair")};
 
             //Assert
             CollectionAssert.AreEqual(result, testList);

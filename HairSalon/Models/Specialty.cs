@@ -9,25 +9,25 @@ using MySql.Data.MySqlClient;
 
 namespace HairSalon.Models
 {
-    public class Service
+    public class Specialty
     {
         private int _id;
-        private string _serviceName;
+        private string _specialtyName;
 
-        public Service(string serviceName, int id = 0)
+        public Specialty(string specialtyName, int id = 0)
         {
             _id = id;
-            _serviceName = serviceName;
+            _specialtyName = specialtyName;
         }
 
-        public int GetServiceId()
+        public int GetSpecialtyId()
         {
             return _id;
         }
 
-        public string GetServiceName()
+        public string GetSpecialtyName()
         {
-            return _serviceName;
+            return _specialtyName;
         }
 
         public void Save()
@@ -36,12 +36,12 @@ namespace HairSalon.Models
             conn.Open();
 
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"INSERT INTO services (serviceName) VALUES (@ServiceName);";
+            cmd.CommandText = @"INSERT INTO specialties (specialtyName) VALUES (@SpecialtiyName);";
 
-            MySqlParameter serviceName = new MySqlParameter();
-            serviceName.ParameterName = "@ServiceName";
-            serviceName.Value = _serviceName;
-            cmd.Parameters.Add(serviceName);
+            MySqlParameter specialtyName = new MySqlParameter();
+            specialtyName.ParameterName = "@SpecialtyName";
+            specialtyName.Value = _specialtyName;
+            cmd.Parameters.Add(specialtyName);
 
             cmd.ExecuteNonQuery();
             _id = (int)cmd.LastInsertedId;
@@ -54,23 +54,23 @@ namespace HairSalon.Models
 
         }
 
-        public static List<Service> GetAll()
+        public static List<Specialty> GetAll()
         {
-            List<Service> allServices = new List<Service> { };
+            List<Specialty> allSpecialtys = new List<Specialty> { };
 
             MySqlConnection conn = DB.Connection();
             conn.Open();
 
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT * FROM services;";
+            cmd.CommandText = @"SELECT * FROM specialties;";
 
             MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
             while (rdr.Read())
             {
                 int id = rdr.GetInt32(0);
-                string serviceName = rdr.GetString(1);
-                Service newService = new Service(serviceName, id);
-                allServices.Add(newService);
+                string specialtyName = rdr.GetString(1);
+                Specialty newSpecialty = new Specialty(specialtyName, id);
+                allSpecialtys.Add(newSpecialty);
             }
 
             conn.Close();
@@ -79,7 +79,7 @@ namespace HairSalon.Models
                 conn.Dispose();
             }
 
-            return allServices;
+            return allSpecialtys;
 
         }
 
@@ -90,7 +90,7 @@ namespace HairSalon.Models
             conn.Open();
 
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"DELETE FROM services;";
+            cmd.CommandText = @"DELETE FROM specialties;";
 
             cmd.ExecuteNonQuery();
 
@@ -100,17 +100,17 @@ namespace HairSalon.Models
                 conn.Dispose();
             }
         }
-        public override bool Equals(System.Object otherService)
+        public override bool Equals(System.Object otherSpecialty)
         {
-            if (!(otherService is Service))
+            if (!(otherSpecialty is Specialty))
             {
                 return false;
             }
             else
             {
-                Service newService = (Service)otherService;
-                bool serviceNameEquality = this.GetServiceName().Equals(newService.GetServiceName());
-                return (serviceNameEquality);
+                Specialty newSpecialty = (Specialty)otherSpecialty;
+                bool specialtyNameEquality = this.GetSpecialtyName().Equals(newSpecialty.GetSpecialtyName());
+                return (specialtyNameEquality);
             }
         }
     }

@@ -132,17 +132,17 @@ namespace HairSalon.Models
             }
         }
 
-        public void AddService(Service newService)
+        public void AddSpecialty(Specialty newSpecialty)
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"INSERT INTO stylists_services (stylist_id, service_id) VALUES (@StylistId, @ServiceId);";
+            cmd.CommandText = @"INSERT INTO stylists_Specialties (stylist_id, Specialty_id) VALUES (@StylistId, @SpecialtyId);";
 
-            MySqlParameter service_id = new MySqlParameter();
-            service_id.ParameterName = "@ServiceId";
-            service_id.Value = newService.GetServiceId();
-            cmd.Parameters.Add(service_id);
+            MySqlParameter Specialty_id = new MySqlParameter();
+            Specialty_id.ParameterName = "@SpecialtyId";
+            Specialty_id.Value = newSpecialty.GetSpecialtyId();
+            cmd.Parameters.Add(Specialty_id);
 
             MySqlParameter stylist_id = new MySqlParameter();
             stylist_id.ParameterName = "@StylistId";
@@ -158,12 +158,12 @@ namespace HairSalon.Models
 
         }
 
-        public List<Service> GetServices()
+        public List<Specialty> GetSpecialties()
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT service_id FROM stylists_services WHERE stylist_id = @StylistId;";
+            cmd.CommandText = @"SELECT Specialty_id FROM stylists_Specialties WHERE stylist_id = @StylistId;";
 
             MySqlParameter stylistId = new MySqlParameter();
             stylistId.ParameterName = "@StylistId";
@@ -172,41 +172,41 @@ namespace HairSalon.Models
 
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
 
-            List<int> serviceIds = new List<int> { };
+            List<int> SpecialtyIds = new List<int> { };
             while (rdr.Read())
             {
-                int serviceId = rdr.GetInt32(0);
-                serviceIds.Add(serviceId);
+                int SpecialtyId = rdr.GetInt32(0);
+                SpecialtyIds.Add(SpecialtyId);
             }
             rdr.Dispose();
 
-            List<Service> services = new List<Service> { };
-            foreach (int serviceId in serviceIds)
+            List<Specialty> Specialties = new List<Specialty> { };
+            foreach (int SpecialtyId in SpecialtyIds)
             {
-                var serviceQuery = conn.CreateCommand() as MySqlCommand;
-                serviceQuery.CommandText = @"SELECT * FROM services WHERE id = @ServiceId;";
+                var SpecialtyQuery = conn.CreateCommand() as MySqlCommand;
+                SpecialtyQuery.CommandText = @"SELECT * FROM Specialties WHERE id = @SpecialtyId;";
 
-                MySqlParameter serviceIdParameter = new MySqlParameter();
-                serviceIdParameter.ParameterName = "@ServiceId";
-                serviceIdParameter.Value = serviceId;
-                serviceQuery.Parameters.Add(serviceIdParameter);
+                MySqlParameter SpecialtyIdParameter = new MySqlParameter();
+                SpecialtyIdParameter.ParameterName = "@SpecialtyId";
+                SpecialtyIdParameter.Value = SpecialtyId;
+                SpecialtyQuery.Parameters.Add(SpecialtyIdParameter);
 
-                var serviceQueryRdr = serviceQuery.ExecuteReader() as MySqlDataReader;
-                while (serviceQueryRdr.Read())
+                var SpecialtyQueryRdr = SpecialtyQuery.ExecuteReader() as MySqlDataReader;
+                while (SpecialtyQueryRdr.Read())
                 {
-                    int thisServiceId = serviceQueryRdr.GetInt32(0);
-                    string serviceName = serviceQueryRdr.GetString(1);
-                    Service foundService = new Service(serviceName, thisServiceId);
-                    services.Add(foundService);
+                    int thisSpecialtyId = SpecialtyQueryRdr.GetInt32(0);
+                    string SpecialtyName = SpecialtyQueryRdr.GetString(1);
+                    Specialty foundSpecialty = new Specialty(SpecialtyName, thisSpecialtyId);
+                    Specialties.Add(foundSpecialty);
                 }
-                serviceQueryRdr.Dispose();
+                SpecialtyQueryRdr.Dispose();
             }
             conn.Close();
             if (conn != null)
             {
                 conn.Dispose();
             }
-            return services;
+            return Specialties;
         }
 
     public static void DeleteAll()

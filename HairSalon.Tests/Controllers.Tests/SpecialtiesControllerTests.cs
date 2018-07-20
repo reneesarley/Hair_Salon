@@ -8,14 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace HairSalon.Tests.Controllers.Tests
 {
     [TestClass]
-    public class ServicesControllerTests
+    public class SpecialtiesControllerTests
     {
         public void Dispose()
         {
-            Service.DeleteAll();
+            Specialty.DeleteAll();
         }
 
-        public ServicesControllerTests()
+        public SpecialtiesControllerTests()
         {
             DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=renee_sarley_test;";
         }
@@ -24,7 +24,7 @@ namespace HairSalon.Tests.Controllers.Tests
         public void Index_ReturnsCorrectView_View()
         {
             //Arrange
-           ServicesController controller = new ServicesController();
+           SpecialtyController controller = new SpecialtyController();
 
             //Act
             IActionResult indexView = controller.Index();

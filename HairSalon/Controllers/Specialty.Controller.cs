@@ -8,13 +8,13 @@ using HairSalon.Models;
 
 namespace HairSalon.Controllers
 {
-    public class ServicesController : Controller
+    public class SpecialtyController : Controller
     {
-        [HttpGet ("services/index")]
+        [HttpGet ("specialty/index")]
         public IActionResult Index()
         {
-            List<Service> allServices = Service.GetAll();
-            return View(allServices);
+            List<Specialty> allSpecialties = Specialty.GetAll();
+            return View(allSpecialties);
         }
     }
 }

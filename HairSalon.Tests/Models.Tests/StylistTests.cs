@@ -13,7 +13,7 @@ namespace HairSalon.Tests.Models.Tests
         public void Dispose()
         {
             Stylist.DeleteAll();
-            Service.DeleteAll();
+            Specialty.DeleteAll();
         }
 
         public StylistTests()
@@ -62,41 +62,41 @@ namespace HairSalon.Tests.Models.Tests
         }
 
         [TestMethod]
-        public void AddService_AddsServiceToStylist_ServiceList()
+        public void AddSpecialty_AddsSpecialtyToStylist_SpecialtyList()
         {
             //Arrange
             Stylist testStylist = new Stylist("first", "last");
             testStylist.Save();
 
-            Service testService = new Service("Hair Cut");
-            testService.Save();
+            Specialty testSpecialty = new Specialty("Hair Cut");
+            testSpecialty.Save();
 
             //Act
-            testStylist.AddService(testService);
+            testStylist.AddSpecialty(testSpecialty);
 
-            List<Service> result = testStylist.GetServices();
-            List<Service> testList = new List<Service> { testService };
+            List<Specialty> result = testStylist.GetSpecialties();
+            List<Specialty> testList = new List<Specialty> { testSpecialty };
 
             //Assert
             CollectionAssert.AreEqual(testList, result);
         }
         [TestMethod]
-        public void GetServices_ReturnsAllStylistServices_CategoryList()
+        public void GetSpecialtys_ReturnsAllStylistSpecialtys_CategoryList()
         {
             //Arrange
             Stylist testStylist = new Stylist("first", "last");
             testStylist.Save();
 
-            Service testService1 = new Service("hair cut");
-            testService1.Save();
+            Specialty testSpecialty1 = new Specialty("hair cut");
+            testSpecialty1.Save();
 
-            Service testService2 = new Service("color");
-            testService2.Save();
+            Specialty testSpecialty2 = new Specialty("color");
+            testSpecialty2.Save();
 
             //Act
-            testStylist.AddService(testService1);
-            List<Service> result = testStylist.GetServices();
-            List<Service> testList = new List<Service> { testService1 };
+            testStylist.AddSpecialty(testSpecialty1);
+            List<Specialty> result = testStylist.GetSpecialties();
+            List<Specialty> testList = new List<Specialty> { testSpecialty1 };
 
             //Assert
             CollectionAssert.AreEqual(testList, result);

@@ -22,7 +22,7 @@
     <div class="card" style="width: 18rem;">
         <div class="card-body stylistCard">
             <h5 class="card-title">@stylist.GetFirstName() @stylist.GetLastName()</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Services Offered:</h6>
+            <h6 class="card-subtitle mb-2 text-muted">:</h6>
             <ul>
             <li class="card-text">Hair Cut - Long Hair: $40.00</li>
             <li class="card-text">Hair Cut - Short Hair: $35.00</li>
@@ -34,6 +34,8 @@
                        <li> @client.GetFirstName()  @client.GetLastName() </li>
                     }
             </ul>
+            <form action="/stylists/update" method="post"><button type="submit" class="btn btn-primary">Update</button></form>
+            <form action="/stylists/delete" method="post"><button type="submit" class="btn btn-warning">Remove</button></form>
         </div>
     </div>
 }
