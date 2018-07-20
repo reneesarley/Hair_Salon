@@ -63,6 +63,22 @@ namespace HairSalon.Controllers
         public IActionResult UpdateStylist(int id, string newFirstName, string newLastName)
         {
             Stylist.Update(newFirstName, newLastName, id);
+            Stylist newStylist = Stylist.Find(id);
+            //get values from check boxes
+            List<Specialty> allSpecialties = Specialty.GetAll();
+
+            for ( int i=0; i<allSpecialties.Count; i++)
+            {
+                string specialtyName = allSpecialties[i].GetSpecialtyName(); 
+                string specialtyValueInput = Request.Form[specialtyName]; 
+                if (!(specialtyValueInput == null))
+                {
+                    //string specialtyValueInput = Request.Form[specialtyName];
+                    int specialtyValueInt = Int32.Parse(specialtyValueInput);                          
+                    newStylist.AddSpecialty(specialtyValueInt);
+                }
+
+            }
             return RedirectToAction("Index");
         }
     }

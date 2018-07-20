@@ -13,7 +13,7 @@
     <select name="stylistId" class="form-control form-control-sm" required>
         @foreach (var stylist in Model)
         {
-        <option value="@stylist.GetId()">@stylist.GetFirstName() @stylist.GetLastName()</option>
+        <option value="@stylist.id">@stylist.GetFirstName() @stylist.GetLastName()</option>
         }
 
     </select>
