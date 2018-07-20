@@ -31,7 +31,7 @@ namespace HairSalon.Controllers
             return View(Stylist.GetAll());
         }
 
-        [HttpPost("stylist/{id}/delete")]
+        [HttpPost("stylists/{id}/delete")]
         public IActionResult Delete(int id)
         {
             Stylist.Delete(id);

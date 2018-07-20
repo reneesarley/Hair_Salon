@@ -12,7 +12,7 @@ namespace HairSalon.Models
 
         public Stylist(string firstName, string lastName, int stylistId = 0)
         {
-            id = id;
+            id = stylistId;
             _lastName = lastName;
             _firstName = firstName;
         }

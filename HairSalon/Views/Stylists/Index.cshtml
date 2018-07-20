@@ -29,7 +29,7 @@
              </ul>
             <h6 class="card-link">Current Clients</h6>
             <ul>
-                @foreach (var client in Client.FilteredByStylist(@stylist.GetId()))
+                @foreach (var client in Client.FilteredByStylist(@stylist.id))
                     {
                        <li> @client.GetFirstName()  @client.GetLastName() </li>
                     }
