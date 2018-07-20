@@ -1,0 +1,16 @@
+﻿
+@{
+}
+<h1>Update @Model.GetFirstName() @Model.GetLastName()</h1>
+<form action="/stylist/@Model.id/update" method="post">
+    <div class="form-group">
+        <label for="newFirstName">Title</label>
+        <input type="text" class="form-control" value="@Model.GetFirstName()" name="newFirstName" id="newFirstName">
+    </div>
+
+    <div class="form-group">
+        <label for="newLastName">Title</label>
+        <input type="text" class="form-control" value="@Model.GetLastName()" name="newLastName" id="newLastName">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

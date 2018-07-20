@@ -36,7 +36,7 @@ namespace HairSalon.Models
             conn.Open();
 
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"INSERT INTO specialties (specialtyName) VALUES (@SpecialtiyName);";
+            cmd.CommandText = @"INSERT INTO specialties (specialtyName) VALUES (@SpecialtyName);";
 
             MySqlParameter specialtyName = new MySqlParameter();
             specialtyName.ParameterName = "@SpecialtyName";
