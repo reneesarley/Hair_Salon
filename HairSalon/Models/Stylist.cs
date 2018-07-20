@@ -246,23 +246,23 @@ namespace HairSalon.Models
         public static void Update(string newFirstName, string newLastName, int stylistId)
         {
 
-            //MySqlConnection conn = DB.Connection();
-            //conn.Open();
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
 
-            //MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-            //cmd.CommandText = @"UPDATE stylists SET firstName = @NewFirstName, lastName = @NewLastName WHERE id = @StylistId";
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"UPDATE stylists SET firstName = @NewFirstName, lastName = @NewLastName WHERE id = @StylistId";
 
-            //cmd.Parameters.AddWithValue("@NewFirstName", newFirstName);
-            //cmd.Parameters.AddWithValue("@NewLastName", newLastName);
-            //cmd.Parameters.AddWithValue("@StylistId", stylistId);
+            cmd.Parameters.AddWithValue("@NewFirstName", newFirstName);
+            cmd.Parameters.AddWithValue("@NewLastName", newLastName);
+            cmd.Parameters.AddWithValue("@StylistId", stylistId);
 
-            //cmd.ExecuteNonQuery();
+            cmd.ExecuteNonQuery();
 
-            //conn.Close();
-            //if (conn != null)
-            //{
-            //    conn.Dispose();
-            //}
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
         }
 
     public override bool Equals(System.Object otherStylist)
@@ -276,8 +276,8 @@ namespace HairSalon.Models
             Stylist newStylist = (Stylist)otherStylist;
             bool firstNameEquality = this.GetFirstName().Equals(newStylist.GetFirstName());
             bool lastNameEquality = this.GetLastName().Equals(newStylist.GetLastName());
-            bool idEquality = this.id.Equals(newStylist.id);
-            return (firstNameEquality && lastNameEquality && idEquality);
+            //bool idEquality = this.id.Equals(newStylist.id);
+            return (firstNameEquality && lastNameEquality);
         }
     }
 
