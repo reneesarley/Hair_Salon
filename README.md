@@ -24,6 +24,7 @@ _This application will track all the stylists and their clients for a hair salon
 | Employee will be able to view a list of all stylists, which will include each stylist's clients|  |  |
 | Employee will be able to view list of clients which will include the client's stylist|  |  |
 
+
 ## Additional Specifications for Hair Salon Stylist and Client Tracker (not implemented yet)
 |Behavior  |     Input     | Output|
 |:----------:|:-------------:|:------:|

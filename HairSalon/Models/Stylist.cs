@@ -39,7 +39,7 @@ namespace HairSalon.Models
 
         public static List<Stylist> GetAll()
         {
-            List<Stylist> allStylists = new List<Stylist> {};
+            List<Stylist> allStylists = new List<Stylist> { };
 
             MySqlConnection conn = DB.Connection();
             conn.Open();
@@ -84,7 +84,7 @@ namespace HairSalon.Models
             int stylistId = 0;
             string firstName = "";
             string lastName = "";
-                
+
             while (rdr.Read())
             {
                 stylistId = rdr.GetInt32(0);
@@ -92,7 +92,7 @@ namespace HairSalon.Models
                 lastName = rdr.GetString(2);
             }
 
-                Stylist foundStylist = new Stylist(firstName,lastName, stylistId);
+            Stylist foundStylist = new Stylist(firstName, lastName, stylistId);
 
             conn.Close();
             if (conn != null)
@@ -101,7 +101,7 @@ namespace HairSalon.Models
             }
 
             return foundStylist;
- 
+
         }
 
         public void Save()
@@ -115,7 +115,7 @@ namespace HairSalon.Models
             MySqlParameter firstName = new MySqlParameter();
             firstName.ParameterName = "@FirstName";
             firstName.Value = _firstName;
-            cmd.Parameters.Add(firstName); 
+            cmd.Parameters.Add(firstName);
 
             MySqlParameter lastName = new MySqlParameter();
             lastName.ParameterName = "@LastName";
@@ -132,45 +132,122 @@ namespace HairSalon.Models
             }
         }
 
-        public static void DeleteAll()
+        public void AddService(Service newService)
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
-
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"DELETE FROM stylists;";
+            cmd.CommandText = @"INSERT INTO stylists_services (stylist_id, service_id) VALUES (@StylistId, @ServiceId);";
+
+            MySqlParameter service_id = new MySqlParameter();
+            service_id.ParameterName = "@ServiceId";
+            service_id.Value = newService.GetServiceId();
+            cmd.Parameters.Add(service_id);
+
+            MySqlParameter stylist_id = new MySqlParameter();
+            stylist_id.ParameterName = "@StylistId";
+            stylist_id.Value = _id;
+            cmd.Parameters.Add(stylist_id);
 
             cmd.ExecuteNonQuery();
-
             conn.Close();
             if (conn != null)
             {
                 conn.Dispose();
             }
+
         }
 
-        public override bool Equals(System.Object otherStylist)
+        public List<Service> GetServices()
         {
-            if (!(otherStylist is Stylist))
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT service_id FROM stylists_services WHERE stylist_id = @StylistId;";
+
+            MySqlParameter stylistId = new MySqlParameter();
+            stylistId.ParameterName = "@StylistId";
+            stylistId.Value = _id;
+            cmd.Parameters.Add(stylistId);
+
+            var rdr = cmd.ExecuteReader() as MySqlDataReader;
+
+            List<int> serviceIds = new List<int> { };
+            while (rdr.Read())
             {
-                return false;
+                int serviceId = rdr.GetInt32(0);
+                serviceIds.Add(serviceId);
             }
-            else
+            rdr.Dispose();
+
+            List<Service> services = new List<Service> { };
+            foreach (int serviceId in serviceIds)
             {
-                Stylist newStylist = (Stylist)otherStylist;
-                bool firstNameEquality = this.GetFirstName().Equals(newStylist.GetFirstName());
-                bool lastNameEquality = this.GetLastName().Equals(newStylist.GetLastName());
-                bool idEquality = this.GetId().Equals(newStylist.GetId());
-                return (firstNameEquality && lastNameEquality && idEquality);
+                var serviceQuery = conn.CreateCommand() as MySqlCommand;
+                serviceQuery.CommandText = @"SELECT * FROM services WHERE id = @ServiceId;";
+
+                MySqlParameter serviceIdParameter = new MySqlParameter();
+                serviceIdParameter.ParameterName = "@ServiceId";
+                serviceIdParameter.Value = serviceId;
+                serviceQuery.Parameters.Add(serviceIdParameter);
+
+                var serviceQueryRdr = serviceQuery.ExecuteReader() as MySqlDataReader;
+                while (serviceQueryRdr.Read())
+                {
+                    int thisServiceId = serviceQueryRdr.GetInt32(0);
+                    string serviceName = serviceQueryRdr.GetString(1);
+                    Service foundService = new Service(serviceName, thisServiceId);
+                    services.Add(foundService);
+                }
+                serviceQueryRdr.Dispose();
             }
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            return services;
         }
 
-        public override int GetHashCode()
+    public static void DeleteAll()
+    {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"DELETE FROM stylists;";
+
+        cmd.ExecuteNonQuery();
+
+        conn.Close();
+        if (conn != null)
         {
-            return this.GetFirstName().GetHashCode();
-           
+            conn.Dispose();
         }
+    }
 
+    public override bool Equals(System.Object otherStylist)
+    {
+        if (!(otherStylist is Stylist))
+        {
+            return false;
+        }
+        else
+        {
+            Stylist newStylist = (Stylist)otherStylist;
+            bool firstNameEquality = this.GetFirstName().Equals(newStylist.GetFirstName());
+            bool lastNameEquality = this.GetLastName().Equals(newStylist.GetLastName());
+            bool idEquality = this.GetId().Equals(newStylist.GetId());
+            return (firstNameEquality && lastNameEquality && idEquality);
+        }
+    }
+
+    public override int GetHashCode()
+    {
+        return this.GetFirstName().GetHashCode();
 
     }
+
+
+}
 }
