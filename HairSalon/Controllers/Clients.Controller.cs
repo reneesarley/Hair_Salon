@@ -10,7 +10,7 @@ namespace HairSalon.Controllers
 {
     public class ClientsController : Controller
     {
-        [HttpGet ("/clients/new")]
+        [HttpGet("/clients/new")]
         public IActionResult AddNewForm()
         {
             return View(Stylist.GetAll());
@@ -28,8 +28,15 @@ namespace HairSalon.Controllers
         [HttpGet("clients/index")]
         public IActionResult Index()
         {
-            List<object> model = new List<object>() {Client.GetAll(), };
+            List<object> model = new List<object>() { Client.GetAll(), };
             return View(model);
+        }
+
+        [HttpPost("clients/{id}/delete")]
+         public IActionResult Delete(int id)
+        {
+            Client.Delete(id);
+            return RedirectToAction("Index");
         }
     }
 }

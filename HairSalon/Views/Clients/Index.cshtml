@@ -22,6 +22,8 @@
             <p class="clientsPhone"></p>
             <p>Stylist: @Stylist.Find(@client.GetStylistId()).GetFirstAndLastName()</p>
 
+            <form action="/clients/update" method="post"><button type="submit" class="btn btn-primary">Update</button></form>
+            <form action="/clients/@client.GetId()/delete" method="post"><button type="submit" class="btn btn-warning">Remove</button></form>
         </div>
     </div>
 }
