@@ -63,6 +63,7 @@ namespace HairSalon.Controllers
         [HttpPost("/stylists/{id}/update")]
         public IActionResult UpdateStylist(int id, string newFirstName, string newLastName)
         {
+            Specialty.DeleteAllSpecialtiesForSylist(id);
             Stylist.Update(newFirstName, newLastName, id);
             Stylist newStylist = Stylist.Find(id);
             //get values from check boxes

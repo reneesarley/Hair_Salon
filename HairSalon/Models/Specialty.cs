@@ -91,10 +91,7 @@ namespace HairSalon.Models
 
             var cmd = conn.CreateCommand() as MySqlCommand;
             cmd.CommandText = @"SELECT specialties.* FROM stylists_specialties JOIN specialties ON (stylists_specialties.specialty_id = specialties.id) WHERE stylists_specialties.stylist_id = @StylistID;";
-            //@"SELECT books.* FROM copies JOIN books on (copies.books_Id = books.id)
-             //JOIN checkout ON (checkout.copies_Id = copies.id)
-             //WHERE checkout.patrons_id= @PatronId;";
-
+    
             cmd.Parameters.AddWithValue("@StylistID", stylistId);
 
             MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
@@ -124,6 +121,25 @@ namespace HairSalon.Models
 
             var cmd = conn.CreateCommand() as MySqlCommand;
             cmd.CommandText = @"DELETE FROM specialties;";
+
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
+
+        public static void DeleteAllSpecialtiesForSylist(int stylistId)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"DELETE FROM stylists_specialties WHERE stylist_id = @StylistId;";
+
+            cmd.Parameters.AddWithValue("@StylistId", stylistId);
 
             cmd.ExecuteNonQuery();
 
