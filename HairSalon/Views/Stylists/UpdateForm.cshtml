@@ -2,16 +2,16 @@
 @{
 }
 @using HairSalon.Models;
-<h1>Update @Model.GetFirstName() @Model.GetLastName()</h1>
-<form action="/stylists/@Model.id/update" method="post">
+<h1>Update @Model[0].GetFirstName() @Model[0].GetLastName()</h1>
+<form action="/stylists/@Model[0].id/update" method="post">
     <div class="form-group">
         <label for="newFirstName">First Name</label>
-        <input type="text" class="form-control" value="@Model.GetFirstName()" name="newFirstName" id="newFirstName">
+        <input type="text" class="form-control" value="@Model[0].GetFirstName()" name="newFirstName" id="newFirstName">
     </div>
 
     <div class="form-group">
         <label for="newLastName">Last Name</label>
-        <input type="text" class="form-control" value="@Model.GetLastName()" name="newLastName" id="newLastName">
+        <input type="text" class="form-control" value="@Model[0].GetLastName()" name="newLastName" id="newLastName">
     </div>
     <h3>Add additional specialties for this stylist:</h3>
     <div class="form-group">
@@ -20,11 +20,11 @@
         @foreach (var specialty in Specialty.GetAll())
     {
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" name="@specialty.GetSpecialtyName()" id="@specialty.GetSpecialtyId()" value="@specialty.GetSpecialtyId()">
+            <input class="form-check-input" type="checkbox" @{if (Specialty.GetAllForStylist(@Model[0].id).Contains(@specialty)) { @Model[1]} }  name="@specialty.GetSpecialtyName()" id="@specialty.GetSpecialtyId()" value="@specialty.GetSpecialtyId() ">
             <label class="form-check-label" for="specialty">@specialty.GetSpecialtyName()</label>
         </div>
 }
     </fieldset>
 </div>
     <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+</form>ß

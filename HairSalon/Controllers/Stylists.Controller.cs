@@ -56,7 +56,8 @@ namespace HairSalon.Controllers
         [HttpGet("/stylists/{id}/update")]
         public IActionResult UpdateForm(int id)
         {
-            return View(Stylist.Find(id));
+            List<object> model = new List<object>(){Stylist.Find(id), "checked"};
+            return View(model);
         }
 
         [HttpPost("/stylists/{id}/update")]

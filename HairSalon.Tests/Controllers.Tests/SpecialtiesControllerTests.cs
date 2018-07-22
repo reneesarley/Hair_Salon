@@ -24,7 +24,7 @@ namespace HairSalon.Tests.Controllers.Tests
         public void Index_ReturnsCorrectView_View()
         {
             //Arrange
-           SpecialtyController controller = new SpecialtyController();
+            SpecialtiesController controller = new SpecialtiesController();
 
             //Act
             IActionResult indexView = controller.Index();
