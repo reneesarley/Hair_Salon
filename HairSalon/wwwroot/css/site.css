@@ -1,7 +1,40 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #3aafa9;
 }
+
+.container {
+background-color: #3aafa9;
+}
+
+.navbar {
+    background-color: #2b7a78;
+    color: white;
+    font-size: 1.25em;
+    justify-content:unset;
+}
+.brand {
+text-transform:uppercase;
+}
+
+a {
+    color: white;
+
+}
+
+.nav li {
+    float: left;
+}
+
+.navbar-inner {
+    float: left;
+}
+    
+.card {
+margin: 6px;
+}
+
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
